@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function registerByAdmin(Request $request){
+    public function register(Request $request){
         // Validate the request data
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:200',
@@ -45,6 +45,18 @@ class UserController extends Controller
         }
     }
 
+    public function index(\App\Models\User $user)
+    {
+        return $user->paginate(2);
+    }
+
+
+
+      
+    public function __construct(\App\Models\User $user){
+        $this->user = $user;
+    }
+   
 }
 
 
