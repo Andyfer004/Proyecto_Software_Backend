@@ -7,15 +7,16 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    // Constructor
-    public function __construct()
+    public function index(\App\Models\User $user)
     {
-        
+        return $user->paginate(2);
     }
 
-    // Método index
-    public function index()
-    {
-       
+
+
+      
+    public function __construct(\App\Models\User $user){
+        $this->user = $user;
     }
+   
 }
