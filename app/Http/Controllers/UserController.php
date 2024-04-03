@@ -9,45 +9,43 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function register(Request $request)
-    {
+    public function registerByAdmin(Request $request){
         // Validate the request data
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:200',
             'lastname' => 'required|string|max:200',
-            'email' => 'required|string|email|max:100|unique:users',
+            'email' => 'required|string|email|max:100|unique:users,email',
             'password' => 'required|string|min:6',
             'phone' => 'required|string|max:20',
-            // Add additional validation rules as needed
+            // Include other fields as necessary
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            return response()->json(['errors' => $validator->errors()], 400);
         }
+    
+        try {
+            $user = new User;
+            $user->name = $request->input('name');
+            $user->lastname = $request->input('lastname');
+            $user->email = $request->input('email');
+            $user->password = Hash::make($request->input('password'));
+            $user->phone = $request->input('phone');
+            // You can add more fields here if you have more columns in your users table
 
-        // Create a new User instance and set its properties from the request
-        $user = new User;
-        $user->name = $request->name;
-        $user->lastname = $request->lastname;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password); // Hash the password
-        $user->phone = $request->phone;
-        // Set any additional properties
+            $user->save();
 
-        // Save the user to the database
-        $user->save();
+            // Return successful response
+            return response()->json(['user' => $user, 'message' => 'Usuario creado con éxito'], 201);
 
-        // Optionally, you could dispatch an email or perform other actions here
-
-        // Return a response, possibly including the new user and a token
-        return response()->json([
-            'message' => 'User registered successfully!',
-            'user' => $user,
-        ], 201);
+        } catch (\Exception $e) {
+            // It's a good idea to log the actual error message in your logs
+            \Log::error($e->getMessage());
+            return response()->json(['message' => 'No se ha podido crear el usuario'], 409);
+        }
     }
+
 }
 
-// Don't forget to add the route for this controller method in your routes/web.php or routes/api.php
-// Example for routes/api.php:
-Route::post('/register', [UserController::class, 'register']);
+
 
