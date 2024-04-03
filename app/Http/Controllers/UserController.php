@@ -45,13 +45,35 @@ class UserController extends Controller
         }
     }
 
+  
+    public function login(Request $request){
+        $userName = $request->input("userName");
+        $password = $request->input("password");
+        
+       
+        
+        $credentials = array(
+            'userName' => $userName,
+            'password' =>  $password
+        );
+        
+       
+
+        if (! $token = Auth::attempt($credentials)) {
+            
+            return response()->json(['message' => 'usuario o contraseña incorrecta'], 401);
+        }
+        return  $this->respondWithToken($token);
+    }
+
+    
+
+
     public function index(\App\Models\User $user)
     {
         return $user->paginate(2);
     }
-
-
-
+   
       
     public function __construct(\App\Models\User $user){
         $this->user = $user;
