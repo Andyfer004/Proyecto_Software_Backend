@@ -5,44 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 
-class UserController extends Controller
-{
-    // Constructor
-    public function __construct()
-    {
+class UserController extends Controller{
+   
+    public function login(Request $request){
+        $userName = $request->input("userName");
+        $password = $request->input("password");
         
-    }
-
-    // Método index
-    public function index()
-    {
        
-    }
+        
+        $credentials = array(
+            'userName' => $userName,
+            'password' =>  $password
+        );
+        
+       
 
-
-    public function showLoginForm()
-    {
-        return view('login'); 
-    }
-
-
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
-        if (Auth::attempt($credentials, $request->filled('remember'))) {
-            $request->session()->regenerate();
-
-            return redirect()->intended('dashboard'); 
+        if (! $token = Auth::attempt($credentials)) {
+            
+            return response()->json(['message' => 'usuario o contraseña incorrecta'], 401);
         }
+        return  $this->respondWithToken($token);
+    }
 
-        return back()->withErrors([
-            'email' => 'Las credenciales proporcionadas no coinciden con nuestros registros.',
-        ])->onlyInput('email');
-    }   
+    
 
     public function logout(Request $request)
     {
