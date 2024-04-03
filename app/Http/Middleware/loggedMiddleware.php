@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -11,7 +12,7 @@ use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 
 class loggedMiddleware
 {
-    /**
+   /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request

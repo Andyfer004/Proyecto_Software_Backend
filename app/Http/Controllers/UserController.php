@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -15,7 +16,7 @@ class UserController extends Controller
             'name' => 'required|string|max:200',
             'lastname' => 'required|string|max:200',
             'email' => 'required|string|email|max:100|unique:users,email',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:6|confirmed',
             'phone' => 'required|string|max:20',
             // Include other fields as necessary
         ]);
@@ -47,13 +48,13 @@ class UserController extends Controller
 
   
     public function login(Request $request){
-        $userName = $request->input("userName");
+        $email = $request->input("email");
         $password = $request->input("password");
         
        
         
         $credentials = array(
-            'userName' => $userName,
+            'email' => $email,
             'password' =>  $password
         );
         
@@ -81,7 +82,7 @@ class UserController extends Controller
 
     public function deactivateAccount($id){
 
-        $data = $this->user->where('id',$id)->update(['voided'=>'TRUE']);
+        $data = $this->user->where('id',$id)->update(['voided'=>'1']);
 
         if($data>0){
             return ['message'=> 'se ha desactivado correctamente', 'deleted'=> $data];
