@@ -90,6 +90,37 @@ class UserController extends Controller
         }
 
     }
+
+    public function update(Request $request, $id){
+
+        $password = $request->input("password");
+
+
+        if($password){
+            $password = app('hash')->make($password);
+            $dataUpdate = $this->user->where('id', $id)->update([
+                'name'=>$request->input('name'),
+                'lastname'=>$request->input('lastname'),
+                'password'=>$password,
+                'email'=>$request->input('email'),
+                'phone'=>$request->input('phone'),
+            ]);
+        }else{
+            $dataUpdate = $this->user->where('iduser', $id)->update([
+                'name'=>$request->input('name'),
+                'lastname'=>$request->input('lastname'),
+                'phone'=>$request->input('phone'),
+                'email'=>$request->input('email'),
+            ]);
+        }
+
+        if($dataUpdate>0){
+            return ['message'=>'se ha actualizado el usuario correctamente', 'data'=>$dataUpdate];
+        }else{
+            return ['message'=>'no se ha podido actualizar al usuario'];
+        }
+        
+    }
    
 }
 
