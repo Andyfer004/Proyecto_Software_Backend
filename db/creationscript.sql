@@ -1,7 +1,4 @@
-create database softwareDB;
-
-
-
+USE laravel;
 CREATE TABLE priorities (
 	id INT NOT NULL AUTO_INCREMENT,
 	namepriority VARCHAR(50) DEFAULT NULL,
@@ -160,3 +157,10 @@ ALTER TABLE subtasks ADD CONSTRAINT fk_subtasks_status FOREIGN KEY (statusid) RE
 ALTER TABLE subtasks ADD CONSTRAINT fk_subtasks_tasks FOREIGN KEY (taskid) REFERENCES tasks(id);
 ALTER TABLE assignment_subtask ADD CONSTRAINT fk_assignment_subtask_subtasks FOREIGN KEY (subtaskid) REFERENCES subtasks(id);
 ALTER TABLE assignment_subtask ADD CONSTRAINT fk_assignment_subtask_users FOREIGN KEY (userid) REFERENCES users(id);
+
+
+
+
+--updates
+ALTER TABLE users
+ADD COLUMN voided BOOLEAN DEFAULT 0;
