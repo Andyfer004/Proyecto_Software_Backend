@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Status extends Model
 {
     use HasFactory;
+
+    protected $table = "status";
+    protected $primaryKey = 'id';
+
+
+    protected $fillable = [
+        'id',
+        'statusname',
+        'created_at',
+        'updated_at',
+    ];
 }
