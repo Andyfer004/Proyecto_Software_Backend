@@ -122,6 +122,40 @@ class UserController extends Controller
         }
         
     }
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+        try {
+            $googleUser = Socialite::driver('google')->user();
+            $user = User::where('email', $googleUser->email)->first();
+
+            if ($user) {
+                $user->update([
+                    'google_id' => $googleUser->id
+                ]);
+            } else {
+                $user = User::create([
+                    'name' => $googleUser->name,
+                    'lastname' => '', // Actualiza según necesites
+                    'email' => $googleUser->email,
+                    'password' => Hash::make('password'), // Considera un mejor manejo de contraseñas
+                    'google_id' => $googleUser->id,
+                    // Agrega otros campos necesarios
+                ]);
+            }
+
+            Auth::login($user);
+
+            return redirect()->to('/home'); // Redirección a donde querramos (pendiente)
+        } catch (\Exception $e) {
+            return redirect()->route('login')->withErrors('Error al autenticar con Google.'); //Redirección pendiente
+        }
+    }
    
 }
 
