@@ -107,7 +107,7 @@ class UserController extends Controller
                 'phone'=>$request->input('phone'),
             ]);
         }else{
-            $dataUpdate = $this->user->where('iduser', $id)->update([
+            $dataUpdate = $this->user->where('id', $id)->update([
                 'name'=>$request->input('name'),
                 'lastname'=>$request->input('lastname'),
                 'phone'=>$request->input('phone'),
