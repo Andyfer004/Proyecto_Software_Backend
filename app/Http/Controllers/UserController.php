@@ -48,23 +48,35 @@ class UserController extends Controller
 
   
     public function login(Request $request){
-        $email = $request->input("email");
-        $password = $request->input("password");
-        
-       
-        
-        $credentials = array(
-            'email' => $email,
-            'password' =>  $password
-        );
-        
-       
 
-        if (! $token = Auth::attempt($credentials)) {
-            
-            return response()->json(['message' => 'usuario o contraseña incorrecta'], 401);
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json(['message' => 'Las credenciales son incorrectas'], 401);
         }
-        return  $this->respondWithToken($token);
+
+        $token = $user->createToken('NombreDelToken')->plainTextToken;
+
+        return response()->json([
+            'token' => $token,
+            'user' => $user,
+            "message" => "Se ha logueado exitosamente",
+            'token_type' => 'Bearer'
+        ], 200);
+        
+    }
+
+
+    public function logout(Request $request){
+        // Revoca el token actual
+        $request->user()->currentAccessToken()->delete();
+
+        // O revoca todos los tokens del usuario
+        $request->user()->tokens->each(function ($token, $key) {
+            $token->delete();
+        });
+
+        return response()->json(['message' => 'Logged out successfully'], 200);
     }
 
     

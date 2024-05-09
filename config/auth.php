@@ -9,7 +9,12 @@ return [
 
     'guards' => [
         'api' => [
-            'driver' => 'jwt',
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
+
+        'web' => [
+            'driver' => 'session',
             'provider' => 'users',
         ],
     ],
