@@ -5,26 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Subtask extends Model
+class Status extends Model
 {
     use HasFactory;
 
 
-    protected $table ="subtasks";
+    protected $table ="status";
 
     protected $primaryKey="id";
 
-
     protected $fillable = [
         'id',
-        'name',
-        'description',
-        'priorityid',
-        'duedate',
-        'timeestimatehours',
-        'taskid',
-        'statusid',
+        'statusname',
         'created_at',
         'updated_at',
     ];
+
+
 }
