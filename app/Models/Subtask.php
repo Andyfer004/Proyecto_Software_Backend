@@ -16,6 +16,7 @@ class Subtask extends Model
 
 
     protected $fillable = [
+        'id',
         'name',
         'description',
         'priorityid',
@@ -23,5 +24,7 @@ class Subtask extends Model
         'timeestimatehours',
         'taskid',
         'statusid',
+        'created_at',
+        'updated_at',
     ];
 }
