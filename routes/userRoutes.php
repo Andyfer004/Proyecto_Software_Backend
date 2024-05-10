@@ -4,12 +4,12 @@ use Illuminate\Support\Facades\Route;
 
 
     Route::post('login', 'UserController@login');
+    Route::post('register', 'UserController@register');
 
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::put('users/{id}', 'UserController@update');
     Route::delete('users/{id}', 'UserController@deactivateAccount');
-    Route::post('register', 'UserController@register');
 
 });
 
