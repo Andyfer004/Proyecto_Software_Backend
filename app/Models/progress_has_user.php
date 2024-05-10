@@ -2,10 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class progress_has_user extends Model
+class ProgressHasUser extends Model
 {
-    use HasFactory;
+    protected $table = 'progress_has_user';
+
+    protected $fillable = [
+        'progress',
+        'week',
+        'userid'
+    ];
+
+    public $timestamps = true;
+
+    /**
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userid');
+    }
 }
