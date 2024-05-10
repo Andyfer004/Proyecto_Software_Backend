@@ -2,10 +2,16 @@
 FROM php:7.4.1-apache
 
 # Instalar extensiones de PHP necesarias para Laravel
-RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install pdo pdo_mysql zip
 
 # Habilitar mod_rewrite para Apache
 RUN a2enmod rewrite
+
+# Instalar herramientas y dependencias necesarias
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copiar la aplicación al contenedor
 COPY . /var/www/html
@@ -15,6 +21,10 @@ WORKDIR /var/www/html
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Desactivar plugins de Composer y permitir superusuario si es necesario
+ENV COMPOSER_NO_PLUGINS=1
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Instalar dependencias de Composer
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
