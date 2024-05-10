@@ -49,4 +49,22 @@ class StatusController extends Controller
 
         return response()->json(['message' => 'Estado eliminado correctamente'], 200);
     }
+
+    public function getStatus($id)
+    {
+        $status = Status::find($id);
+        if (!$status) {
+            return response()->json(['message' => 'Estado no encontrado'], 404);
+        }
+
+        return response()->json(['status' => $status], 200);
+    }
+
+    public function getStatuses()
+    {
+        $statuses = Status::all();
+
+        return response()->json(['statuses' => $statuses], 200);
+    }
+    
 }
