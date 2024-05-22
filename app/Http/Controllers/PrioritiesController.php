@@ -36,6 +36,18 @@ class PrioritiesController extends Controller
 
         return response()->json(['message' => 'Prioridad actualizada correctamente', 'priority' => $priority], 200);
     }
-    
+
+    public function deletePriority($id)
+    {
+        $priority = Priorities::find($id);
+        if (!$priority) {
+            return response()->json(['message' => 'Prioridad no encontrada'], 404);
+        }
+
+        $priority->delete();
+
+        return response()->json(['message' => 'Prioridad eliminada correctamente'], 200);
+    }
+
 
 }
