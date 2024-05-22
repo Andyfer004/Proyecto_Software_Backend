@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
     Route::post('login', 'UserController@login');
     Route::post('register', 'UserController@register');
+    Route::resource('profiles', 'ProfileController');
 
 
 Route::middleware('auth:sanctum')->group(function () {
