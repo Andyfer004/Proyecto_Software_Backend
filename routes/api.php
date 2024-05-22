@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\PrioritiesController;
+use App\Http\Controllers\NotesController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,12 @@ Route::put('priorities/{id}', [PrioritiesController::class, 'updatePriority']);
 Route::delete('priorities/{id}', [PrioritiesController::class, 'deletePriority']);
 Route::get('priorities/{id}', [PrioritiesController::class, 'getPriority']);
 Route::get('priorities', [PrioritiesController::class, 'getPriorities']);
+
+Route::post('notes', [NotesController::class, 'addNote']);
+Route::put('notes/{id}', [NotesController::class, 'updateNote']);
+Route::delete('notes/{id}', [NotesController::class, 'deleteNote']);
+Route::get('notes/{id}', [NotesController::class, 'getNote']);
+Route::get('notes', [NotesController::class, 'getNotes']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
