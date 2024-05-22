@@ -46,5 +46,17 @@ class NotesController extends Controller
         return response()->json(['message' => 'Nota actualizada correctamente', 'note' => $note], 200);
     }
 
+    public function deleteNote($id)
+    {
+        $note = Notes::find($id);
+        if (!$note) {
+            return response()->json(['message' => 'Nota no encontrada'], 404);
+        }
+
+        $note->delete();
+
+        return response()->json(['message' => 'Nota eliminada correctamente'], 200);
+    }
+
 
 }
