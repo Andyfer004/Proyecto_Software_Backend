@@ -58,5 +58,22 @@ class NotesController extends Controller
         return response()->json(['message' => 'Nota eliminada correctamente'], 200);
     }
 
+    public function getNote($id)
+    {
+        $note = Notes::find($id);
+        if (!$note) {
+            return response()->json(['message' => 'Nota no encontrada'], 404);
+        }
+
+        return response()->json(['note' => $note], 200);
+    }
+
+    public function getNotes()
+    {
+        $notes = Notes::all();
+
+        return response()->json(['notes' => $notes], 200);
+    }
+
 
 }
