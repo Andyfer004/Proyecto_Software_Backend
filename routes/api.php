@@ -7,6 +7,7 @@ use App\Http\Controllers\PrioritiesController;
 use App\Http\Controllers\NotesController;
 
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,18 @@ Route::put('tasks/{id}', [TaskController::class, 'updateTask']);
 Route::delete('tasks/{id}', [TaskController::class, 'deleteTask']);
 Route::get('tasks/{id}', [TaskController::class, 'getTask']);
 Route::get('tasks', [TaskController::class, 'getTasks']);
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+
+//Rutas de eventos
+Route::post('events', [EventController::class, 'addEvent']);
+Route::put('events/{id}', [EventController::class, 'updateEvent']);
+Route::delete('events/{id}', [EventController::class, 'deleteEvent']);
+Route::get('events/{id}', [EventController::class, 'getEvent']);
+Route::get('events', [EventController::class, 'getEvents']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
