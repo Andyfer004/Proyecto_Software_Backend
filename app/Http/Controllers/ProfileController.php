@@ -7,64 +7,71 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    // Display a listing of the profiles
-    public function index()
-    {
-        $profiles = Profiles::all(); 
-        return view('profiles.index', ['profiles' => $profiles]);
-    }
-
-    // Show the form for creating a new profile
-    public function create()
-    {
-        return view('profiles.create');
-    }
-
-    // Store a newly created profile in storage
-    public function store(Request $request)
+    
+    public function addProfile(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:200',
-            'image' => 'required|max:100', 
+            'name' => 'required|string|max:200',
+            'image' => 'required|string|max:100',
         ]);
 
-        $profile = new Profiles([ 
-            'name' => $request->name,
-            'image' => $request->image,
-        ]);
+        $profile = new Profiles();
+        $profile->name = $request->name;
+        $profile->image = $request->image;
         $profile->save();
 
-        return redirect()->route('profiles.index')->with('success', 'Profile created successfully.');
+        return response()->json(['message' => 'Perfil creado correctamente', 'profile' => $profile], 201);
     }
 
-    // Display the specified profile
-    public function show(Profiles $profile) 
-    {
-        return view('profiles.show', compact('profile'));
-    }
-
-    // Show the form for editing the specified profile
-    public function edit(Profiles $profile)
-    {
-        return view('profiles.edit', compact('profile'));
-    }
-
-    // Update the specified profile in storage
-    public function update(Request $request, Profiles $profile) 
+    
+    public function updateProfile(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|max:200',
-            'image' => 'required|max:100', 
+            'name' => 'required|string|max:200',
+            'image' => 'required|string|max:100',
         ]);
 
-        $profile->update($request->all());
-        return redirect()->route('profiles.index')->with('success', 'Profile updated successfully.');
+        $profile = Profiles::find($id);
+        if (!$profile) {
+            return response()->json(['message' => 'Perfil no encontrado'], 404);
+        }
+
+        $profile->name = $request->name;
+        $profile->image = $request->image;
+        $profile->save();
+
+        return response()->json(['message' => 'Perfil actualizado correctamente', 'profile' => $profile], 200);
     }
 
-    // Remove the specified profile from storage
-    public function destroy(Profiles $profile) 
+    
+    public function deleteProfile($id)
     {
+        $profile = Profiles::find($id);
+        if (!$profile) {
+            return response()->json(['message' => 'Perfil no encontrado'], 404);
+        }
+
         $profile->delete();
-        return redirect()->route('profiles.index')->with('success', 'Profile deleted successfully.');
+
+        return response()->json(['message' => 'Perfil eliminado correctamente'], 200);
+    }
+
+    
+    public function getProfile($id)
+    {
+        $profile = Profiles::find($id);
+        if (!$profile) {
+            return response()->json(['message' => 'Perfil no encontrado'], 404);
+        }
+
+        return response()->json(['profile' => $profile], 200);
+    }
+
+   
+    public function getProfiles()
+    {
+        $profiles = Profiles::all();
+
+        return response()->json(['profiles' => $profiles], 200);
     }
 }
