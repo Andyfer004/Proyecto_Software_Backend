@@ -37,6 +37,15 @@ Route::delete('notes/{id}', [NotesController::class, 'deleteNote']);
 Route::get('notes/{id}', [NotesController::class, 'getNote']);
 Route::get('notes', [NotesController::class, 'getNotes']);
 
+
+
+ //rutas del controlador ProfileController
+ Route::post('/profiles', [ProfileController::class, 'addProfile']);
+ Route::put('/profiles/{id}', [ProfileController::class, 'updateProfile']);
+ Route::delete('/profiles/{id}', [ProfileController::class, 'deleteProfile']);
+ Route::get('/profiles/{id}', [ProfileController::class, 'getProfile']);
+ Route::get('/profiles', [ProfileController::class, 'getProfiles']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

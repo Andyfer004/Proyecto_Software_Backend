@@ -1,10 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 
     Route::post('login', 'UserController@login');
     Route::post('register', 'UserController@register');
+
+   
 
 
 Route::middleware('auth:sanctum')->group(function () {
