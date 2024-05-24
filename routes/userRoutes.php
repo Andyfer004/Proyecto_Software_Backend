@@ -1,13 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
 
 
     Route::post('login', 'UserController@login');
     Route::post('register', 'UserController@register');
 
-   
+
 
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -19,3 +18,5 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/not_auth', function () {
     return response()->json(['message' => 'not authenticated'], 200);
 });
+
+

@@ -6,6 +6,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\PrioritiesController;
 use App\Http\Controllers\NotesController;
 
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,15 @@ Route::get('notes', [NotesController::class, 'getNotes']);
  Route::delete('/profiles/{id}', [ProfileController::class, 'deleteProfile']);
  Route::get('/profiles/{id}', [ProfileController::class, 'getProfile']);
  Route::get('/profiles', [ProfileController::class, 'getProfiles']);
+
+
+//Rutas del controlador taskController
+
+Route::post('tasks', [TaskController::class, 'addTask']);
+Route::put('tasks/{id}', [TaskController::class, 'updateTask']);
+Route::delete('tasks/{id}', [TaskController::class, 'deleteTask']);
+Route::get('tasks/{id}', [TaskController::class, 'getTask']);
+Route::get('tasks', [TaskController::class, 'getTasks']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
