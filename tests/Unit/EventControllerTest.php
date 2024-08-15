@@ -60,4 +60,19 @@ class EventControllerTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function it_can_delete_an_event()
+    {
+        $event = Event::factory()->create();
+
+        $response = $this->deleteJson('/api/events/' . $event->id);
+
+        $response->assertStatus(200)
+                 ->assertJson(['message' => 'Evento eliminado correctamente']);
+
+        $this->assertDatabaseMissing('events', [
+            'id' => $event->id,
+        ]);
+    }
+
 }
