@@ -96,4 +96,26 @@ class EventControllerTest extends TestCase
                  ]);
     }
 
+    /** @test */
+    public function it_can_get_all_events()
+    {
+        Event::factory()->count(5)->create();
+
+        $response = $this->getJson('/api/events');
+
+        $response->assertStatus(200)
+                 ->assertJsonStructure([
+                     'events' => [
+                         '*' => [
+                             'id',
+                             'name',
+                             'description',
+                             'date',
+                             'location',
+                             'created_at',
+                             'updated_at',
+                         ]
+                     ]
+                 ]);
+    }
 }
