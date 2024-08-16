@@ -22,9 +22,3 @@ services:
       MYSQL_USER: laraveluser
       MYSQL_PASSWORD: laravelpassword
       MYSQL_ROOT_PASSWORD: rootpassword
-    volumes:
-      - dbdata:/var/lib/mysql
-      - ./db:/docker-entrypoint-initdb.d  # Montar los scripts SQL
-
-volumes:
-  dbdata:

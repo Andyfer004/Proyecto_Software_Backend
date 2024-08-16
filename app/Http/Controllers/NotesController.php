@@ -13,13 +13,13 @@ class NotesController extends Controller
         $request->validate([
             'note' => 'required|string|max:255',
             'image' => 'nullable|string|max:255',
-            'profile_id' => 'required|integer',
+            'profileid' => 'required|integer',
         ]);
 
         $note = new Notes();
         $note->note = $request->note;
         $note->image = $request->image;
-        $note->profile_id = $request->profile_id;
+        $note->profileid = $request->profileid;
         $note->save();
 
         return response()->json(['message' => 'Nota creada correctamente', 'note' => $note], 201);
@@ -30,7 +30,7 @@ class NotesController extends Controller
         $request->validate([
             'note' => 'required|string|max:255',
             'image' => 'nullable|string|max:255',
-            'profile_id' => 'required|integer',
+            'profileid' => 'required|integer',
         ]);
 
         $note = Notes::find($id);
@@ -40,7 +40,7 @@ class NotesController extends Controller
 
         $note->note = $request->note;
         $note->image = $request->image;
-        $note->profile_id = $request->profile_id;
+        $note->profileid = $request->profileid;
         $note->save();
 
         return response()->json(['message' => 'Nota actualizada correctamente', 'note' => $note], 200);
