@@ -54,3 +54,20 @@ class ProfileControllerTest extends TestCase
             'name' => 'Perfil actualizado',
         ]);
     }
+
+    /** @test */
+    public function it_can_delete_a_profile()
+    {
+        $profile = Profiles::factory()->create();
+
+        $response = $this->deleteJson('/api/profiles/' . $profile->id);
+
+        $response->assertStatus(200)
+                 ->assertJson(['message' => 'Perfil eliminado correctamente']);
+
+        $this->assertDatabaseMissing('profiles', [
+            'id' => $profile->id,
+        ]);
+    }
+
+}
