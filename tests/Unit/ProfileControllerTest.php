@@ -35,3 +35,22 @@ class ProfileControllerTest extends TestCase
             'name' => 'Perfil de prueba',
         ]);
     }
+
+    /** @test */
+    public function it_can_update_a_profile()
+    {
+        $profile = Profiles::factory()->create();
+
+        $response = $this->putJson('/api/profiles/' . $profile->id, [
+            'name' => 'Perfil actualizado',
+            'image' => 'imagen_actualizada.png',
+        ]);
+
+        $response->assertStatus(200)
+                 ->assertJson(['message' => 'Perfil actualizado correctamente']);
+
+        $this->assertDatabaseHas('profiles', [
+            'id' => $profile->id,
+            'name' => 'Perfil actualizado',
+        ]);
+    }
