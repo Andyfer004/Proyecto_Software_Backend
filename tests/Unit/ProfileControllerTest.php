@@ -70,4 +70,43 @@ class ProfileControllerTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function it_can_get_a_single_profile()
+    {
+        $profile = Profiles::factory()->create();
+
+        $response = $this->getJson('/api/profiles/' . $profile->id);
+
+        $response->assertStatus(200)
+                 ->assertJsonStructure([
+                     'profile' => [
+                         'id',
+                         'name',
+                         'image',
+                         'created_at',
+                         'updated_at',
+                     ]
+                 ]);
+    }
+
+    /** @test */
+    public function it_can_get_all_profiles()
+    {
+        Profiles::factory()->count(5)->create();
+
+        $response = $this->getJson('/api/profiles');
+
+        $response->assertStatus(200)
+                 ->assertJsonStructure([
+                     'profiles' => [
+                         '*' => [
+                             'id',
+                             'name',
+                             'image',
+                             'created_at',
+                             'updated_at',
+                         ]
+                     ]
+                 ]);
+    }
 }
