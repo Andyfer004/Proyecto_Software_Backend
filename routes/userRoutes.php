@@ -26,13 +26,6 @@ Route::prefix('subtasks')->group(function () {
 });
 
 
-Route::prefix('reminders')->group(function () {
-    Route::post('/', [RemindersController::class, 'addReminder']);
-    Route::put('/{id}', [RemindersController::class, 'updateReminder']);
-    Route::delete('/{id}', [RemindersController::class, 'deleteReminder']);
-    Route::get('/{id}', [RemindersController::class, 'getReminder']);
-    Route::get('/', [RemindersController::class, 'getReminders']);
-});
 
 
 Route::get('/not_auth', function () {
