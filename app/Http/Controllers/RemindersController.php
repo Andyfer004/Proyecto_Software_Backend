@@ -14,7 +14,7 @@ class RemindersController extends Controller
             'alarm' => 'required|boolean',
             'datereminder' => 'required|date',
             'hourreminder' => 'required|date_format:H:i',
-            'profile_id' => 'required|integer',
+            'profileid' => 'required|integer',
         ]);
 
         $reminder = new Reminders();
@@ -22,7 +22,7 @@ class RemindersController extends Controller
         $reminder->alarm = $request->alarm;
         $reminder->datereminder = $request->datereminder;
         $reminder->hourreminder = $request->hourreminder;
-        $reminder->profile_id = $request->profile_id;
+        $reminder->profileid = $request->profileid;
         $reminder->save();
 
         return response()->json(['message' => 'Recordatorio creado correctamente', 'reminder' => $reminder], 201);
@@ -35,7 +35,7 @@ class RemindersController extends Controller
             'alarm' => 'required|boolean',
             'datereminder' => 'required|date',
             'hourreminder' => 'required|date_format:H:i',
-            'profile_id' => 'required|integer',
+            'profileid' => 'required|integer',
         ]);
 
         $reminder = Reminders::find($id);
@@ -47,7 +47,7 @@ class RemindersController extends Controller
         $reminder->alarm = $request->alarm;
         $reminder->datereminder = $request->datereminder;
         $reminder->hourreminder = $request->hourreminder;
-        $reminder->profile_id = $request->profile_id;
+        $reminder->profileid = $request->profileid;
         $reminder->save();
 
         return response()->json(['message' => 'Recordatorio actualizado correctamente', 'reminder' => $reminder], 200);
