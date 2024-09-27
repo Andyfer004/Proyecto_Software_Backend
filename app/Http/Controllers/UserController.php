@@ -11,16 +11,15 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function register(Request $request){
-        // Validate the request data
+        // Validar los datos del request
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:200',
             'lastname' => 'required|string|max:200',
             'email' => 'required|string|email|max:100|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
             'phone' => 'required|string|max:20',
-            // Include other fields as necessary
         ]);
-
+    
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
@@ -32,21 +31,25 @@ class UserController extends Controller
             $user->email = $request->input('email');
             $user->password = Hash::make($request->input('password'));
             $user->phone = $request->input('phone');
-            // You can add more fields here if you have more columns in your users table
-
             $user->save();
-
-            // Return successful response
-            return response()->json(['user' => $user, 'message' => 'Usuario creado con éxito'], 201);
-
+    
+            // Crear el perfil asociado al usuario
+            $profile = new Profiles();
+            $profile->name = $user->name; // Puedes personalizar el nombre del perfil
+            $profile->image = 'default.png'; // O establece un valor por defecto para la imagen
+            $profile->user_id = $user->id; // Asigna el ID del usuario al perfil
+            $profile->save();
+    
+            // Retornar la respuesta exitosa
+            return response()->json(['user' => $user, 'profile' => $profile, 'message' => 'Usuario y perfil creados con éxito'], 201);
+    
         } catch (\Exception $e) {
-            // It's a good idea to log the actual error message in your logs
             \Log::error($e->getMessage());
-            return response()->json(['message' => 'No se ha podido crear el usuario'], 409);
+            return response()->json(['message' => 'No se ha podido crear el usuario y el perfil'], 409);
         }
     }
+    
 
-  
     public function login(Request $request){
 
         $user = User::where('email', $request->email)->first();
