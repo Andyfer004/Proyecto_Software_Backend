@@ -47,6 +47,8 @@ Route::get('notes', [NotesController::class, 'getNotes']);
  Route::delete('/profiles/{id}', [ProfileController::class, 'deleteProfile']);
  Route::get('/profiles/{id}', [ProfileController::class, 'getProfile']);
  Route::get('/profiles', [ProfileController::class, 'getProfiles']);
+ Route::post('/profiles/assign', [ProfileController::class, 'assignProfileToUser']);
+
 
 
 //Rutas del controlador taskController
