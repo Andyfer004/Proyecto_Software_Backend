@@ -46,4 +46,9 @@ class User extends Authenticatable
     public function getAuthPassword() {
         return $this->password;
     }
+
+    public function profiles()
+    {
+        return $this->belongsToMany(Profiles::class, 'user_profiles', 'user_id', 'profile_id');
+    }
 }
