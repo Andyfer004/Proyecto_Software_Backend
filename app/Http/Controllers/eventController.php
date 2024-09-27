@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
+use App\Models\Events;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -17,7 +17,7 @@ class EventController extends Controller
             'location' => 'required|string|max:255',
         ]);
 
-        $event = new Event();
+        $event = new Events();
         $event->name = $request->name;
         $event->description = $request->description;
         $event->date = $request->date;
@@ -33,19 +33,17 @@ class EventController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
-            'date' => 'required|date',
-            'location' => 'required|string|max:255',
+            'dateevent' => 'required|date',
         ]);
 
-        $event = Event::find($id);
+        $event = Events::find($id);
         if (!$event) {
             return response()->json(['message' => 'Evento no encontrado'], 404);
         }
 
         $event->name = $request->name;
         $event->description = $request->description;
-        $event->date = $request->date;
-        $event->location = $request->location;
+        $event->date = $request->dateevent;
         $event->save();
 
         return response()->json(['message' => 'Evento actualizado correctamente', 'event' => $event], 200);
@@ -54,7 +52,7 @@ class EventController extends Controller
     // Eliminar un evento
     public function deleteEvent($id)
     {
-        $event = Event::find($id);
+        $event = Events::find($id);
         if (!$event) {
             return response()->json(['message' => 'Evento no encontrado'], 404);
         }
@@ -67,7 +65,7 @@ class EventController extends Controller
     // Mostrar un evento específico
     public function getEvent($id)
     {
-        $event = Event::find($id);
+        $event = Events::find($id);
         if (!$event) {
             return response()->json(['message' => 'Evento no encontrado'], 404);
         }
@@ -78,8 +76,8 @@ class EventController extends Controller
     // Mostrar lista de eventos
     public function getEvents()
     {
-        $events = Event::all();
+        $events = Events::all();
 
-        return response()->json(['events' => $events], 200);
+        return response()->json($events, 200);
     }
 }

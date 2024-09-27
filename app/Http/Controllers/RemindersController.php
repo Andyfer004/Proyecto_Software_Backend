@@ -10,10 +10,7 @@ class RemindersController extends Controller
     public function addReminder(Request $request)
     {
         $request->validate([
-            'description' => 'required|string|max:255',
             'alarm' => 'required|boolean',
-            'datereminder' => 'required|date',
-            'hourreminder' => 'required|date_format:H:i',
             'profileid' => 'required|integer',
         ]);
 
@@ -31,10 +28,7 @@ class RemindersController extends Controller
     public function updateReminder(Request $request, $id)
     {
         $request->validate([
-            'description' => 'required|string|max:255',
             'alarm' => 'required|boolean',
-            'datereminder' => 'required|date',
-            'hourreminder' => 'required|date_format:H:i',
             'profileid' => 'required|integer',
         ]);
 
