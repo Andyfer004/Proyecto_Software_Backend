@@ -24,8 +24,16 @@ class Reminders extends Model
         'datereminder',
         'hourreminder',
         'profileid',
+        'priorityid',  // Agregar el campo de prioridad
         'created_at',
         'updated_at',
     ];
-    
+
+    /**
+     * Relación con la tabla de prioridades.
+     */
+    public function priority()
+    {
+        return $this->belongsTo(Priorities::class, 'priorityid');
+    }
 }

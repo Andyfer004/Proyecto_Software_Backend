@@ -16,14 +16,16 @@ class CreateRemindersTable extends Migration
         Schema::create('reminders', function (Blueprint $table) {
             $table->id();
             $table->text('description');
-            $table->tinyInteger('alarm');
+            $table->tinyInteger('alarm');  // tinyInteger para alarma (0 o 1)
             $table->date('datereminder')->nullable();
             $table->time('hourreminder')->nullable();
             $table->unsignedBigInteger('profileid');
+            $table->unsignedBigInteger('priorityid');  // Relacionado con prioridades
             $table->timestamps();
 
-            // Define la clave foránea
+            // Definir claves foráneas
             $table->foreign('profileid')->references('id')->on('profiles');
+            $table->foreign('priorityid')->references('id')->on('priorities');
         });
     }
 
