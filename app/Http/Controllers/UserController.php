@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Profiles;
+use App\Models\Profiles_has_user;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -37,8 +39,13 @@ class UserController extends Controller
             $profile = new Profiles();
             $profile->name = $user->name; // Puedes personalizar el nombre del perfil
             $profile->image = 'default.png'; // O establece un valor por defecto para la imagen
-            $profile->user_id = $user->id; // Asigna el ID del usuario al perfil
             $profile->save();
+
+
+            $profileHasUser = new Profiles_has_user();
+            $profileHasUser->userid = $user->id; // Asignar el id del usuario
+            $profileHasUser->profileid = $profile->id; // Asignar el id del perfil
+            $profileHasUser->save();
     
             // Retornar la respuesta exitosa
             return response()->json(['user' => $user, 'profile' => $profile, 'message' => 'Usuario y perfil creados con éxito'], 201);
