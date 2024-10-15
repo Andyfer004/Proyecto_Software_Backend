@@ -47,6 +47,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/userRoutes.php'));
 
+
+            Route::prefix('api')->middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/reminderRoutes.php'));
+
             Route::prefix('api')->middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/subtaskRoutes.php'));
