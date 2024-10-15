@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   app:
     build: .
@@ -16,9 +17,12 @@ services:
 
   db:
     image: mysql:5.7
+    platform: linux/amd64
     restart: always
     environment:
       MYSQL_DATABASE: laravel
       MYSQL_USER: laraveluser
       MYSQL_PASSWORD: laravelpassword
       MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"  # Exponer el puerto 3306 para MySQL

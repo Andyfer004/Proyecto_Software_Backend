@@ -53,7 +53,7 @@ class taskController extends Controller
      }
  
      // Actualizar una tarea existente
-     public function update(Request $request, $id)
+     public function updateTask(Request $request, $id)
      {
          $task = Tasks::find($id);
          if ($task) {
