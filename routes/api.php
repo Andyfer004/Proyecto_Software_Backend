@@ -56,7 +56,7 @@ Route::get('notes', [NotesController::class, 'getNotes']);
 Route::post('tasks', [TaskController::class, 'addTask']);
 Route::put('tasks/{id}', [TaskController::class, 'updateTask']);
 Route::delete('tasks/{id}', [TaskController::class, 'deleteTask']);
-Route::get('tasks/{id}', [TaskController::class, 'getTask']);
+Route::get('tasks/{idprofile}', [TaskController::class, 'getTask']);
 Route::get('tasks', [TaskController::class, 'getTasks']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

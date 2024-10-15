@@ -9,11 +9,17 @@ use Illuminate\Support\Facades\Validator;
 class taskController extends Controller
 {
      // Mostrar lista de tareas
-     public function getTasks()
-     {
-         $tasks = Tasks::all();
-         return response()->json($tasks);
-     }
+     public function getTask($idprofile)
+    {
+        // Buscar todas las tareas asociadas al id del perfil
+        $tasks = Tasks::where('profileid', $idprofile)->get();
+
+        if ($tasks->isEmpty()) {
+            return response()->json(['error' => 'No tasks found for this profile'], 404);
+        }
+
+        return response()->json($tasks);
+    }
  
      // Mostrar una tarea específica
      public function show($id)
