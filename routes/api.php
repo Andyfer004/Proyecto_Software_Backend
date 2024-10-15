@@ -7,6 +7,7 @@ use App\Http\Controllers\PrioritiesController;
 use App\Http\Controllers\NotesController;
 
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventController;
 
 /*

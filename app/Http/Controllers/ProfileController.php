@@ -64,7 +64,7 @@ class ProfileController extends Controller
             return response()->json(['message' => 'Perfil no encontrado'], 404);
         }
 
-        return response()->json(['profile' => $profile], 200);
+        return response()->json($profile, 200);
     }
 
    
@@ -72,7 +72,7 @@ class ProfileController extends Controller
     {
         $profiles = Profiles::all();
 
-        return response()->json(['profiles' => $profiles], 200);
+        return response()->json($profiles, 200);
     }
 
     public function assignProfileToUser(Request $request)
