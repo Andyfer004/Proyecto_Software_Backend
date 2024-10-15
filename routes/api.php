@@ -3,10 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StatusController;
-use App\Http\Controllers\PrioritiesController;
+use App\Http\Controllers\prioritiesController;
 use App\Http\Controllers\NotesController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TaskController;
+use App\Http\Controllers\taskController;
 use App\Http\Controllers\EventController;
 
 /*
@@ -27,11 +27,11 @@ Route::get('/statuses', [StatusController::class, 'getStatuses']);
 
 
 /* route priorities */
-Route::post('priorities', [PrioritiesController::class, 'addPriority']);
-Route::put('priorities/{id}', [PrioritiesController::class, 'updatePriority']);
-Route::delete('priorities/{id}', [PrioritiesController::class, 'deletePriority']);
-Route::get('priorities/{id}', [PrioritiesController::class, 'getPriority']);
-Route::get('priorities', [PrioritiesController::class, 'getPriorities']);
+Route::post('priorities', [prioritiesController::class, 'addPriority']);
+Route::put('priorities/{id}', [prioritiesController::class, 'updatePriority']);
+Route::delete('priorities/{id}', [prioritiesController::class, 'deletePriority']);
+Route::get('priorities/{id}', [prioritiesController::class, 'getPriority']);
+Route::get('priorities', [prioritiesController::class, 'getPriorities']);
 
 Route::post('notes', [NotesController::class, 'addNote']);
 Route::put('notes/{id}', [NotesController::class, 'updateNote']);
@@ -53,11 +53,11 @@ Route::get('notes', [NotesController::class, 'getNotes']);
 
 //Rutas del controlador taskController
 
-Route::post('tasks', [TaskController::class, 'addTask']);
-Route::put('tasks/{id}', [TaskController::class, 'updateTask']);
-Route::delete('tasks/{id}', [TaskController::class, 'deleteTask']);
-Route::get('tasks/{idprofile}', [TaskController::class, 'getTask']);
-Route::get('tasks', [TaskController::class, 'getTasks']);
+Route::post('tasks', [taskController::class, 'addTask']);
+Route::put('tasks/{id}', [taskController::class, 'updateTask']);
+Route::delete('tasks/{id}', [taskController::class, 'deleteTask']);
+Route::get('tasks/{idprofile}', [taskController::class, 'getTask']);
+Route::get('tasks', [taskController::class, 'getTasks']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

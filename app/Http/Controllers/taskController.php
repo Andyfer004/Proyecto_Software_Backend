@@ -15,6 +15,20 @@ class taskController extends Controller
         $tasks = Tasks::where('profileid', $idprofile)->get();
 
         if ($tasks->isEmpty()) {
+            return response()->json([]);
+        }
+
+        return response()->json($tasks);
+    }
+
+
+
+    public function getTasks()
+    {
+        // Buscar todas las tareas asociadas al id del perfil
+        $tasks = Tasks::get();
+
+        if ($tasks->isEmpty()) {
             return response()->json(['error' => 'No tasks found for this profile'], 404);
         }
 
