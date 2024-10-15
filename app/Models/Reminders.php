@@ -18,13 +18,12 @@ class Reminders extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id',
         'description',
         'alarm',
         'datereminder',
         'hourreminder',
         'profileid',
-        'priorityid',  // Agregar el campo de prioridad
+        'priorityid',  // Campo para priorizar recordatorios
         'created_at',
         'updated_at',
     ];
