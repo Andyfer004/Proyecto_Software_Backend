@@ -7,15 +7,15 @@ class UpdateTasksTableMakeImageNullable extends Migration
 {
     public function up()
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->string('image')->nullable()->change();
+        Schema::table('profiles', function (Blueprint $table) {
+            $table->string('image')->nullable();
         });
     }
 
     public function down()
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->string('image')->nullable(false)->change();
+        Schema::table('profiles', function (Blueprint $table) {
+            $table->string('image')->nullable(false);
         });
     }
 }
