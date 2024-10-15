@@ -7,6 +7,7 @@ use App\Http\Controllers\PrioritiesController;
 use App\Http\Controllers\NotesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventController;
 
 /*
@@ -47,6 +48,8 @@ Route::get('notes', [NotesController::class, 'getNotes']);
  Route::delete('/profiles/{id}', [ProfileController::class, 'deleteProfile']);
  Route::get('/profiles/{id}', [ProfileController::class, 'getProfile']);
  Route::get('/profiles', [ProfileController::class, 'getProfiles']);
+ Route::post('/profiles/assign', [ProfileController::class, 'assignProfileToUser']);
+
 
 
 //Rutas del controlador taskController

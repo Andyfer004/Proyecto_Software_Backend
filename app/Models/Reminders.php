@@ -23,7 +23,7 @@ class Reminders extends Model
         'alarm',
         'datereminder',
         'hourreminder',
-        'profile_id',
+        'profileid',
         'created_at',
         'updated_at',
     ];

@@ -1,17 +1,17 @@
 # Imagen base con PHP y Apache
-FROM php:7.4.1-apache
+FROM php:8.2-apache
 
-# Instalar extensiones de PHP necesarias para Laravel
-RUN docker-php-ext-install pdo pdo_mysql zip
+# Instalar extensiones de PHP necesarias para Laravel y dependencias necesarias
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    zip \
+    git \
+    unzip \
+    && docker-php-ext-install pdo pdo_mysql zip \
+    && rm -rf /var/lib/apt/lists/*
 
 # Habilitar mod_rewrite para Apache
 RUN a2enmod rewrite
-
-# Instalar herramientas y dependencias necesarias
-RUN apt-get update && apt-get install -y \
-    git \
-    unzip \
-    && rm -rf /var/lib/apt/lists/*
 
 # Copiar la aplicación al contenedor
 COPY . /var/www/html

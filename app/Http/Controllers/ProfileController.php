@@ -64,7 +64,7 @@ class ProfileController extends Controller
             return response()->json(['message' => 'Perfil no encontrado'], 404);
         }
 
-        return response()->json(['profile' => $profile], 200);
+        return response()->json($profile, 200);
     }
 
    
@@ -72,6 +72,26 @@ class ProfileController extends Controller
     {
         $profiles = Profiles::all();
 
-        return response()->json(['profiles' => $profiles], 200);
+        return response()->json($profiles, 200);
+    }
+
+    public function assignProfileToUser(Request $request)
+    {
+        $request->validate([
+            'profileId' => 'required|exists:profiles,id', // Validar que el perfil exista
+            'userId' => 'required|exists:users,id', // Validar que el usuario exista
+        ]);
+
+        $profile = Profiles::find($request->profileId);
+        $user = User::find($request->userId);
+
+        // Asumimos que tienes una relación en tu modelo User para asociar perfiles
+        $user->profiles()->attach($profile); // Asignar el perfil al usuario
+
+        return response()->json([
+            'message' => 'Perfil asignado al usuario correctamente',
+            'profile' => $profile,
+            'user' => $user
+        ], 200);
     }
 }

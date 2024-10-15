@@ -3,20 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Tasks;
+use Illuminate\Support\Facades\Validator;
 
 class taskController extends Controller
 {
      // Mostrar lista de tareas
-     public function index()
+     public function getTasks()
      {
-         $tasks = Task::all();
+         $tasks = Tasks::all();
          return response()->json($tasks);
      }
  
      // Mostrar una tarea específica
      public function show($id)
      {
-         $task = Task::find($id);
+         $task = Tasks::find($id);
          if ($task) {
              return response()->json($task);
          } else {
@@ -25,16 +27,35 @@ class taskController extends Controller
      }
  
      // Crear una nueva tarea
-     public function store(Request $request)
+     public function addTask(Request $request)
      {
-         $task = Task::create($request->all());
+         // Define validation rules
+         $validator = Validator::make($request->all(), [
+             'name' => 'required|string|max:500',
+             'description' => 'required|string',
+             'priorityid' => 'nullable|integer',
+             'duedate' => 'nullable|date',
+             'timeestimatehours' => 'nullable|numeric',
+             'profileid' => 'required|integer',
+             'statusid' => 'nullable|integer',
+         ]);
+ 
+         // Check if validation fails
+         if ($validator->fails()) {
+             return response()->json(['errors' => $validator->errors()], 422);
+         }
+ 
+         // Create the task
+         $task = Tasks::create($validator->validated());
+ 
+         // Return the created task as JSON response
          return response()->json($task, 201);
      }
  
      // Actualizar una tarea existente
      public function update(Request $request, $id)
      {
-         $task = Task::find($id);
+         $task = Tasks::find($id);
          if ($task) {
              $task->update($request->all());
              return response()->json($task);
@@ -46,7 +67,7 @@ class taskController extends Controller
      // Eliminar una tarea
      public function destroy($id)
      {
-         $task = Task::find($id);
+         $task = Tasks::find($id);
          if ($task) {
              $task->delete();
              return response()->json(['message' => 'Task deleted successfully']);
