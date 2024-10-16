@@ -60,7 +60,34 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/subtaskRoutes.php'));
 
         //cambios
-   
+            Route::prefix('api')->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/eventRoutes.php'));
+
+            Route::prefix('api')->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/notesRoutes.php'));
+
+
+            Route::prefix('api')->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/prioritiesRoutes.php'));
+            
+            Route::prefix('api')->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/profilesRoutes.php'));
+
+
+            Route::prefix('api')->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/statusRoutes.php'));
+
+
+            Route::prefix('api')->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/taskRoutes.php'));
+
+
 
         });
     }
