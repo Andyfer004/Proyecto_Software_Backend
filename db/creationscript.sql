@@ -89,10 +89,12 @@ CREATE TABLE reminders (
 	datereminder DATE DEFAULT NULL,
 	hourreminder TIME DEFAULT NULL,
 	profileid INT NOT NULL,
+	completed TINYINT(1) DEFAULT 0,  -- Campo booleano para indicar completado
 	created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (id)
 );
+
 
 CREATE TABLE tasks (
 	id INT NOT NULL AUTO_INCREMENT,

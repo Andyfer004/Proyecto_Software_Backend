@@ -21,6 +21,7 @@ class CreateRemindersTable extends Migration
             $table->time('hourreminder')->nullable();
             $table->unsignedBigInteger('profileid');
             $table->unsignedBigInteger('priorityid');  // Relacionado con prioridades
+            $table->boolean('completed')->default(false); // Campo booleano para indicar si está completado
             $table->timestamps();
 
             // Definir claves foráneas

@@ -24,6 +24,7 @@ class Reminders extends Model
         'hourreminder',
         'profileid',
         'priorityid',  // Campo para priorizar recordatorios
+        'completed',   // Campo booleano para indicar si está completado
         'created_at',
         'updated_at',
     ];
