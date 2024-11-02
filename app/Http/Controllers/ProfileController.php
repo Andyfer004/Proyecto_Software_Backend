@@ -11,13 +11,22 @@ class ProfileController extends Controller
     public function addProfile(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:200',
-            'image' => 'required|string|max:100',
+        'name' => 'required|string|max:200',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validar que es una imagen
         ]);
 
+        // Procesar y guardar la imagen
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images/profiles'), $imageName); // Guardar en /public/images/profiles
+            $imagePath = 'images/profiles/' . $imageName; // Ruta relativa para guardar en la DB
+    }
+
+        // Crear el perfil
         $profile = new Profiles();
         $profile->name = $request->name;
-        $profile->image = $request->image;
+        $profile->image = $imagePath;
         $profile->save();
 
         return response()->json(['message' => 'Perfil creado correctamente', 'profile' => $profile], 201);
