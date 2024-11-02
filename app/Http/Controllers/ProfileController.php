@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profiles; 
+use App\Models\Profiles_has_user; 
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -29,6 +30,15 @@ class ProfileController extends Controller
         $profile->image = $imagePath;
         $profile->save();
 
+
+        $profile_has_user = new Profiles_has_user();
+
+        $profile_has_user->userid = $request->user()->id;
+
+        $profile_has_user->profileid = $profile->id;
+
+        $profile_has_user->save();
+
         return response()->json(['message' => 'Perfil creado correctamente', 'profile' => $profile], 201);
     }
 
@@ -48,6 +58,7 @@ class ProfileController extends Controller
         $profile->name = $request->name;
         $profile->image = $request->image;
         $profile->save();
+
 
         return response()->json(['message' => 'Perfil actualizado correctamente', 'profile' => $profile], 200);
     }
@@ -77,12 +88,19 @@ class ProfileController extends Controller
     }
 
    
-    public function getProfiles()
+    public function getProfiles(Request $request)
     {
-        $profiles = Profiles::all();
-
+        $userId = $request->user()->id; 
+    
+        $profiles = Profiles_has_user::where('userid', $userId)
+        ->join('profiles', 'profiles.id', '=', 'profiles_has_user.profileid')
+        ->select('profiles.*') // Selecciona las columnas de la tabla `profiles`
+        ->get();
+    
         return response()->json($profiles, 200);
     }
+
+
 
     public function assignProfileToUser(Request $request)
     {

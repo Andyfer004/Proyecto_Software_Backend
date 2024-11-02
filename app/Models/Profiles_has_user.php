@@ -20,7 +20,7 @@ class Profiles_has_user extends Model
     protected $fillable = [
         'id',
         'userid',
-        'porfileid',
+        'profileid',
         'created_at',
         'updated_at',
     ];
