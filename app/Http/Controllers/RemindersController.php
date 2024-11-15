@@ -56,6 +56,7 @@ public function updateReminder(Request $request, $id)
     $reminder->hourreminder = $request->hourreminder ?? $reminder->hourreminder;
     $reminder->profileid = $request->profileid ?? $reminder->profileid;
     $reminder->priorityid = $request->priorityid ?? $reminder->priorityid;
+    $reminder->completed = $request->completed ?? $reminder->completed;
 
     $reminder->save();
 
