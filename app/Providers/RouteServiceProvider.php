@@ -88,6 +88,11 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/taskRoutes.php'));
 
 
+            Route::prefix('api')->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/settingsRoute.php'));
+
+
 
         });
     }
