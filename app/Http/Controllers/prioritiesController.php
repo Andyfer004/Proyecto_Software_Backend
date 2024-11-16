@@ -15,6 +15,7 @@ class PrioritiesController extends Controller
 
         $priority = new Priorities();
         $priority->namepriority = $request->namepriority;
+        $priority->user_id = auth()->id(); // Asocia al usuario autenticado
         $priority->save();
 
         return response()->json(['message' => 'Prioridad creada correctamente', 'priority' => $priority], 201);
@@ -62,9 +63,18 @@ class PrioritiesController extends Controller
     public function getPriorities()
     {
         $priorities = Priorities::all();
-
         return response()->json(['priorities' => $priorities], 200);
     }
 
+    public function getPrioritiesByUserId($id)
+{
+    $priorities = Priorities::where('user_id', $id)->get();
+
+    if ($priorities->isEmpty()) {
+        return response()->json(['message' => 'No se encontraron prioridades para este usuario'], 404);
+    }
+
+    return response()->json(['priorities' => $priorities], 200);
+}
 
 }

@@ -22,3 +22,5 @@ services:
       MYSQL_USER: laraveluser
       MYSQL_PASSWORD: laravelpassword
       MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"  # Exponer el puerto 3306 para acceso desde el host

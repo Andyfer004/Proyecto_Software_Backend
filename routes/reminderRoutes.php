@@ -6,10 +6,10 @@ use App\Http\Controllers\RemindersController;
 
 
 
-Route::prefix('reminders')->group(function () {
-    Route::post('/', [RemindersController::class, 'addReminder']);
-    Route::put('/{id}', [RemindersController::class, 'updateReminder']);
-    Route::delete('/{id}', [RemindersController::class, 'deleteReminder']);
-    Route::get('/{id}', [RemindersController::class, 'getReminder']);
-    Route::get('/', [RemindersController::class, 'getReminders']);
-});
+
+    Route::post('reminders/', [RemindersController::class, 'addReminder']);
+    Route::put('reminders/{id}', [RemindersController::class, 'updateReminder']);
+    Route::delete('reminders/{id}', [RemindersController::class, 'deleteReminder']);
+    Route::get('reminders/{id}', [RemindersController::class, 'getReminder']);
+    Route::get('reminders/', [RemindersController::class, 'getReminders']);
+

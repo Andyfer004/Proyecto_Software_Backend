@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Status;
 
 class StatusController extends Controller
@@ -16,6 +15,7 @@ class StatusController extends Controller
 
         $status = new Status();
         $status->statusname = $request->statusname;
+        $status->user_id = auth()->id(); // Asocia al usuario autenticado
         $status->save();
 
         return response()->json(['message' => 'Estado creado correctamente', 'status' => $status], 201);
@@ -63,8 +63,17 @@ class StatusController extends Controller
     public function getStatuses()
     {
         $statuses = Status::all();
-
         return response()->json(['statuses' => $statuses], 200);
     }
+
+    public function getStatusesByUserId($id)
+    {
+        $statuses = Status::where('user_id', $id)->get();
     
-}
+        if ($statuses->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron estados para este usuario'], 404);
+        }
+    
+        return response()->json(['statuses' => $statuses], 200);
+    }
+}    

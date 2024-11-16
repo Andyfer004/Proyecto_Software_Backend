@@ -12,15 +12,16 @@ class Priorities extends Model
     protected $table = "priorities";
     protected $primaryKey = 'id';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'id',
         'namepriority',
+        'user_id', // Relación con el usuario
         'created_at',
         'updated_at',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

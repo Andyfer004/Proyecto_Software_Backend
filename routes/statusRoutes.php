@@ -11,3 +11,6 @@ Route::put('status/{id}', [StatusController::class, 'updateStatus']);
 Route::delete('status/{id}', [StatusController::class, 'deleteStatus']);
 Route::get('/status/{id}', [StatusController::class, 'getStatus']);
 Route::get('/statuses', [StatusController::class, 'getStatuses']);
+Route::get('/statuses/user/{id}', [StatusController::class, 'getStatusesByUserId']);
+
+
